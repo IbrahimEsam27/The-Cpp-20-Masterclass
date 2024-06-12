@@ -7,3 +7,4 @@ There are a few good reasons:
  - It can lead to more naming collisions since you’ll end up with more code in a single code file.
  - **Reference:** [Inline Function - Learn Cpp](https://www.learncpp.com/cpp-tutorial/inline-functions-and-variables/)
 ---
+
