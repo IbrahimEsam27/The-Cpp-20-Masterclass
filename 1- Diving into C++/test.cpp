@@ -1,6 +1,6 @@
 #include <iostream>
 
-// (consteval) appeared since C++20
+// (consteval) appeared since C++20 
 consteval int get_value()
 {
     return 3;
