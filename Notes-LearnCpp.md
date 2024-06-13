@@ -8,6 +8,7 @@ char value2 {256};     //is not allowed
 // Functional Initialization (), Less Safe Than Braced Initialization
 int x (20.5);   // Conversion from Double to Integer is Allowed with ()
 ```
+---
 ### Float Percision and Double
  - **precision of Double is greater than Float so when using fraction in the number we consider the double is greater than float, but if don't use fractions in the number we conider the equal**
 ```cpp
