@@ -27,7 +27,7 @@ int x (20.5);   // Conversion from Double to Integer is Allowed with ()
     float number3(12345678910);
     printf("Number 3 = %f\n", number3);
 ```
- - **Using Braced Initialization {} you should put the number in float form with . if it's greater than 7 digits **
+ - **Using Braced Initialization {} you should put the number in float form with . if it's greater than 7 digits**
 ```cpp
 float number3{12345670910.0};
 ```
@@ -55,4 +55,88 @@ There are a few good reasons:
  - It can lead to more naming collisions since you’ll end up with more code in a single code file.
  - **Reference:** [Inline Function - Learn Cpp](https://www.learncpp.com/cpp-tutorial/inline-functions-and-variables/)
 ---
+### Simple notes 
+ - To print state (false or true) on consle not (0 and 1)
+```c
+std::cout << std::boolalpha;
+std::cout << "State is " << State << std::endl;
+```
+ - static_cast used to transform between data types
+```cpp
+    char value1 = 65;
+    std::cout << "Value_1 as a Character = " << value1 << std::endl; //prints A
+    std::cout << "Value_1 as an Integer = " << static_cast<int> (value1) << std::endl; //prints 65
+```
+ - Comma Operator Exuecutes from Left To Right
+```cpp
+    int result = (number1 *= ++increment, number2 - (++increment), number3 += ++increment);
+    std::cout << "Increment = " << increment << std::endl; // 8
+    std::cout << "Number 1 = " << number1 << std::endl; // 60
+    /*Tricky: 20 not 13 because we didn't assign the value to number 2 
+    but in number1 and number3 we assign the value to the variable*/
+    std::cout << "Number 2 = " << number2 << std::endl; 
+    std::cout << "Number 3 = " << number3 << std::endl; // 33
+    std::cout << "Result = " <<result << std::endl; // 33
+```
+ - std::cout makes the program slower, when printing something during for loop, it takes more time than if w don't print anything using std::cout
+```cpp
+    int count, number = 2;
+
+    for (count = 0; count < 100000; count++)
+    {
+        number++;
+        std::cout << "Count = " << count << std::endl; //Makes the program much slower
+    }
+    std::cout << "Done and The Count = " << count << " And The Number = " << number << std::endl;
+```
+
+---
+### pointers vs references
+ - You can't decalre a reference without initializing it because it's an alias to such variable and it has no exisist without initializng, but you can declare a pointer without initializing and it will have garbage value
+```cpp
+int& reference_value1 {}; //compiler error, it must be assigned to a variable
+int* Ptr_value1; //not compiler error
+```
+ - the reference will point at the same location, so when assigning another value to
+    the refernce , it just take its value not to point on its address like pointers
+```cpp
+    int value1 {15};
+    int value2 {16};
+    int& reference_value1 {value1};
+    int* ptr_value1 {&value1};
+    reference_value1 = value2; // means that will assign 16 the (value2) to value1 without any change in Addresses
+    ptr_value1 = &value2 //means that pointer will point to another location and have its value
+```
+ - the reference is considered as a constant pointer so we can't change its address it's alias for
+```cpp
+int *const ptr_to_value = &value1;
+int& reference_to_value = value1;
+```
+---
+### references with range based loops
+Modify Each elemnt in an aray with reference
+ - In this following way the variable (i) will have the copy of the value of the array in each iteration, but it's just a copy; so changing a value of i will not affect the original array
+```cpp
+int arr[]{1, 2, 3, 4, 5};
+    for (auto i : arr)
+    {
+        i = i * 10;
+    }
+    std::cout << "Element 1 = " << arr[0] << std::endl; // prints 1
+```
+ - Using refernce to modify each element in the array it self because the reference is
+    an alias for the real element of array
+```cpp
+int arr[]{1, 2, 3, 4, 5};
+    for (auto &i : arr)
+    {
+        i = i * 10;
+    }
+    std::cout << "Element 1 = " << arr[0] << std::endl; // prints 10
+```
+---
+
+
+
+
 
