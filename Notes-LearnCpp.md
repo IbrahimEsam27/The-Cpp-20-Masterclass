@@ -135,6 +135,133 @@ int arr[]{1, 2, 3, 4, 5};
     std::cout << "Element 1 = " << arr[0] << std::endl; // prints 10
 ```
 ---
+### Const and consept of leatst privilege 
+ - Any user or program or proccess should have only the **minimum privilege** to perform their function
+ - By making more const functions, you reduce the error might be done
+```cpp
+class rectangle
+{
+private:
+    //It's beter to avoid const member functon variables
+    double width;
+    double height;
+
+public:
+    rectangle();
+    rectangle(double width_, double height_);
+    double GetWidth() const; // put the fn const cause it ain't change member variable
+    void SetWidth(double width_);
+    double GetHeight() const;
+    void SetHeight(double height_);
+    /*Using Const when knowing that the function will not change in member variables (We should put const fn as much as we can)*/
+    double calcArea() const;
+    double calcPermitive() const;
+};
+
+int main(int argc, char const *argv[])
+{
+    const rectangle r1; // when put const object so we can only call the const function
+    // r1.SetHeight()--->will give comiler error
+    r1.GetHeight();
+    /*here data is const so i can call just const functios*/
+    const rectangle* r2 = new rectangle(4,2);
+    r2->calcArea();
+    //r2->SetHeight(5); //this is compuiler error
+    r2 = & r1; //this is valid
+
+    /*here pointer is constant no the data*/
+    rectangle* const r3 = new rectangle(9,8); 
+    r3->SetHeight(15.2); //valid
+    //r3 = &r1 ; //This is not valid
+
+    return 0;
+}
+```
+---
+### Static Data member and static function
+ - At any class if no objsects created but the **static var** exist and will be till end of the program
+```cpp
+class test
+{
+public:
+    static int x; // Declared shared among all objects
+};
+int test::x = 10; // Static member is drclared inside class but defined outside it
+int main(int argc, char const *argv[])
+{
+    test::x += 1; //gives 11
+    return 0;
+}
+```
+ - The static Function is created when doing any functionality that doesn't depend on the object (doesn't use any data member) , it can't access the data members 
+```cpp
+class test
+{
+public:
+    int x;
+    static int factorial (int n)
+    {
+        x = 10 //Error because it's can't acess data members
+        int res=1 ;
+        for (int i = 0 ; i < n ; i++)
+        {
+            res *= i;
+        }
+        return res;
+    }
+};
+```
+ - **Static function Can access static data member**
+>Note: In static variables we declare variables inside the class ---- we must define it outside the class, 
+>
+>If we declared variable but not defineded that gives **compiler error** if that variable is used ,,**But** Not giving any errors if that variable not used.
+>
+>It gives **Linking Error**
+---
+
+### Vector Assignation
+```cpp
+std::vector<int> vector1, vector2, vector3;
+
+vector1.push_back(1);
+vector1.push_back(1);
+vector1.push_back(1);
+
+vector2.assign(3,1);
+vector2.push_back(1);
+vector2.push_back(1);
+
+for (int i = 0 ; i < 3; i++)
+{
+    vector3.push_back(1);
+}
+    
+std::cout << "Size of Vector1 = " << vector1.size() << " Capacity of Vector1 = " << vector1.capacity() << std::endl;
+std::cout << "Size of Vector2 = " << vector2.size() << " Capacity of Vector2 = " << vector2.capacity() << std::endl;
+std::cout << "Size of Vector3 = " << vector3.size() << " Capacity of Vector3 = " << vector3.capacity() << std::endl;
+
+std::vector<int> vector4 = std::vector<int>(20);
+    for (auto i = vector4.begin(); i < vector4.end(); i++)
+    {
+        std::cout << *i << " ";
+    }
+    vector4.push_back(1);
+    std::cout << "\nSize of Vector4 = " << vector4.size() << " Capacity of Vector4 = " << vector4.capacity() << std::endl;
+```
+ - When Using **``V.assign(3 , 10)``** function you set the the vector with value of 10 , 3 times. the size is always as same as the number of elements inside the vector **,BUT** the capacity differ from method to another
+ - When setting with method **``V.assign(3 , 10)``** The capacity is set to **3** and when you push any element it will be doubled to be **6** , and it will still **6** when you push **5th** and **6th** elements, but when adding the **7th** it will be doubled to be **12** and so on
+ - The same exactly of **``V.assign(20 , 0)``** is to **``std::vector<int> vector4 = std::vector<int>(20)``**
+ - When setting by function **``V.push_back(10)``** or doing **for-loop** to set the elements with that function , it take a different way in capacity, It will be **1,2,4,8,16,32,......** and so on so when you assign **2** eleements it will be capacity of two, when you assign the **3rd** it will be **4** , when you assign the **4th** and **5th** elements the capacity will be **8** and so on.
+
+
+
+
+
+
+
+
+
+
 
 
 
