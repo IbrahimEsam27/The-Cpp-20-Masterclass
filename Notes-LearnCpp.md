@@ -269,7 +269,47 @@ std::vector<int> vector4 = std::vector<int>(20);
 User (const User&) = delete; //class called User and this is way to create copy constructor
 void operator = (const User&) = delete;
 ```
+### Access in Parent Class Example
+- If we have a parent class Code like
+```cpp
+class Person
+{
+protected:
+    std::string name;
+public:
+    Person() : name("Ibrahim")
+    {
+        std::cout << "Default Constructor Called of Person" << std::endl;
+    }
+    Person(std::string name) : name(name)
+    {
+        std::cout << "2nd Constructor called of Person" << std::endl;
+    }
+}
+```
+- We created a child from that class
+```cpp
+class Student : public Person
+{
+private:
+    double GPA;
 
+public:
+    Student() 
+    {
+        std::cout << "Default Constructorn of Student Class" << std::endl;
+        GPA = 0;
+        name = "Hani";
+    }
+    Student(double gpa) : Person("Ali"), GPA(gpa)
+    {
+        std::cout << "Second Constructor of Student Class" << std::endl;
+    }
+}
+```
+- If we want to set the name which is protected in Parent Class we should to call a constructor of the parent with the way in second Constructor in Child here
+- we can't access the name in parent class with list initializer in the child constructor because it hasn't been created yet
+- SO if we wanted to access name from parent class we can set it inisde the constructor of child class not to use list initializer
 
 
 
