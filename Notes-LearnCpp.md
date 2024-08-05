@@ -177,6 +177,8 @@ int main(int argc, char const *argv[])
     return 0;
 }
 ```
+- Const Member Variables must be initialized in **Definition or in Initializer list** ( Try to avoid them as possible)
+- In function parameters use as possible (const someclass &name), it saves time and memory and telling that it won't change
 ---
 ### Static Data member and static function
  - At any class if no objsects created but the **static var** exist and will be till end of the program
@@ -211,7 +213,7 @@ public:
     }
 };
 ```
- - **Static function Can access static data member**
+ - **Static function Can access static data member only and can't access data members**
 >Note: In static variables we declare variables inside the class ---- we must define it outside the class, 
 >
 >If we declared variable but not defineded that gives **compiler error** if that variable is used ,,**But** Not giving any errors if that variable not used.
@@ -252,10 +254,35 @@ std::vector<int> vector4 = std::vector<int>(20);
  - When setting with method **``V.assign(3 , 10)``** The capacity is set to **3** and when you push any element it will be doubled to be **6** , and it will still **6** when you push **5th** and **6th** elements, but when adding the **7th** it will be doubled to be **12** and so on
  - The same exactly of **``V.assign(20 , 0)``** is to **``std::vector<int> vector4 = std::vector<int>(20)``**
  - When setting by function **``V.push_back(10)``** or doing **for-loop** to set the elements with that function , it take a different way in capacity, It will be **1,2,4,8,16,32,......** and so on so when you assign **2** eleements it will be capacity of two, when you assign the **3rd** it will be **4** , when you assign the **4th** and **5th** elements the capacity will be **8** and so on.
+---
+### Single Responsibilty
+- **Good class is responsible on one concern**
+- Must be One reason to change the class , **EX**: *an email service class with retrial (resend on fail) + logging  + caching ----> this is **Bad-Designed** Class*
+
+---
+### Prevent Copy Constructor and Assignment operator
+- Purpose to catch the code that calls them and you don't notice
+- But You may support them later if needed
+- you can move the copy constructor to private.
+- in C++11 it's easer 
+```cpp
+User (const User&) = delete; //class called User and this is way to create copy constructor
+void operator = (const User&) = delete;
+```
 
 
 
 
+
+
+
+
+
+
+
+---
+### Recommended to Watch
+[OOP Summary | Dr. Mostafa Saad](https://youtu.be/VtBhBUz9nlw?si=boKjJ7JeAH8yXt-Q)
 
 
 
