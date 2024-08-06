@@ -1,4 +1,20 @@
 # Notes C++20
+- [Notes C++20](#notes-c20)
+    - [Braced Initialization{} Vs Functional Initialization()](#braced-initialization-vs-functional-initialization)
+    - [Float Percision and Double](#float-percision-and-double)
+    - [Why not make all functions inline and defined in a header file?](#why-not-make-all-functions-inline-and-defined-in-a-header-file)
+    - [Simple notes](#simple-notes)
+    - [pointers vs references](#pointers-vs-references)
+    - [References with range based loops](#references-with-range-based-loops)
+    - [Const and consept of leatst privilege](#const-and-consept-of-leatst-privilege)
+    - [Static Data member and static function](#static-data-member-and-static-function)
+    - [Vector Assignation](#vector-assignation)
+    - [Single Responsibilty](#single-responsibilty)
+    - [Prevent Copy Constructor and Assignment operator](#prevent-copy-constructor-and-assignment-operator)
+    - [Access in Parent Class Example](#access-in-parent-class-example)
+    - [Inheriting Constructors](#inheriting-constructors)
+    - [Recommended to Watch](#recommended-to-watch)
+
 ### Braced Initialization{} Vs Functional Initialization()
  - **can't do casting with Braced Initialization**
 ```cpp
@@ -113,7 +129,7 @@ int *const ptr_to_value = &value1;
 int& reference_to_value = value1;
 ```
 ---
-### references with range based loops
+### References with range based loops
 Modify Each elemnt in an aray with reference
  - In this following way the variable (i) will have the copy of the value of the array in each iteration, but it's just a copy; so changing a value of i will not affect the original array
 ```cpp
@@ -269,6 +285,7 @@ std::vector<int> vector4 = std::vector<int>(20);
 User (const User&) = delete; //class called User and this is way to create copy constructor
 void operator = (const User&) = delete;
 ```
+---
 ### Access in Parent Class Example
 - If we have a parent class Code like
 ```cpp
@@ -310,7 +327,25 @@ public:
 - If we want to set the name which is protected in Parent Class we should to call a constructor of the parent with the way in second Constructor in Child here
 - we can't access the name in parent class with list initializer in the child constructor because it hasn't been created yet
 - SO if we wanted to access name from parent class we can set it inisde the constructor of child class not to use list initializer
-
+---
+### Inheriting Constructors
+By default Constructors don't be inherited so if we want t inherit we do the following starts from C++11 This way ou take the constructor from parent class and can use it
+```cpp
+class B : public A
+{
+private:
+    int z;
+public:
+    using A::A;
+};
+int main()
+{
+    B b(3, 4);
+    std::cout << b.x << " " << b.y << std::endl;
+    return 0;
+}
+```
+---
 
 
 
